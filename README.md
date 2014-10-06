@@ -54,7 +54,7 @@ Getting Started
 Assuming you haven't done any Python work before you might need a boost.
 This will install PIP and a Python virtual environment and both are very good
 things to know about if you do any Python development.
-
+```
 cd /tmp
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 sudo python get-pip.py
@@ -65,3 +65,4 @@ mkvirtualenv wrapup
 git clone git@github.com:rodoyle/wrapup.git wrapup
 cd wrapup
 python setup.py develop
+```
