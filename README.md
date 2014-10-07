@@ -1,5 +1,5 @@
-Objective
-=========
+# Objective
+
 Create a Python wrapper for a C/C++ such that it could be integrated into a 
 larger Python application. You may choose any C/C++ source code you wish, 
 including your own work. The aim is to demonstrate key aspects of teamwork at 
@@ -7,38 +7,63 @@ DeskGen: integration, testing, documentation, readability, good abstraction, and
  **effective communication** which we feel are just as important 
 as brilliant algorithms. The goal should be that the other members of the 
 DeskGen team could integrate your work into a larger Python application 
-without understanding all the details of your implementation.
+without necessarily knowing all the details of your implementation.
 
 
 The skeleton follows general Python conventions for this type of package, but is
 a suggestion, not a requirement.
 
-You should be sure to include:
-* C/C++ source - goes in "lib"
-* Makefile and any other compilation requirements (lib)
-* Python source - goes in "wrapup" (rename to whatever you pick). This is your
-Python Package (source directory). 
-* Tests - at least one Python-callable test of the code. You should also describe
-the other test cases you'd write.
-* Documentation - sufficient documentation such that someone else at DeskGen 
-could effectively setup and run the underlying C/C++ code
+Here is the annotated tree:
+
+```
+.
+├── doc <------------------------------------------ Documentation
+│    └── instructions.md
+├── lib <------------------------------------------ C/C++ source
+│   └── code.c
+├── LICENSE.md             ,----- Project toolchain
+├── README.md              |
+├── scripts <--------------'  ,-- Python packaging entrypoint
+├── setup.py <----------------'
+├── tests <---------------------- At least one test that the wrapped code is
+│   └── test_wrapper.py           callable from Python. You should also
+└── wrapup                        describe the other test cases you'd write.
+    ├── __init__.py
+    └── wrapper.py
+```
+
+
+## Further notes
+
+* Makefile and any other compilation requirements should be placed in `lib`, I
+  would like to be able to compile and test the wrapper
+* Documentation - sufficient documentation such that someone else at DeskGen
+  could effectively setup and run the underlying C/C++ code
 * License - Copyright remains yours so please pick a license
 
-You don't need to include:
+## You don't need to include
+
 * setup.py - No need to make this a distributable python module
-* granular coverage of the library, just the more interesting public methods as
-an example is sufficient. You may wish to outline the "future work" you'd undertake.
-* extensive cross-platform build details (assume a sane version of Ubuntu)
+* granular test coverage of the library, just the more interesting public
+  methods as an example is sufficient. You may wish to outline the "future
+  work" you'd undertake.
+* Extensive cross-platform build details (assume a sane version of Ubuntu)
 * Python Packaging (setup.py) is not the focus
 
 You may take as long as you need until you feel you have something that 
 showcases your abilities and we can discuss together. As in real-life you can 
 use all resources at your disposal, the web, books, friends, but ultimately 
-your work should be your own. You can also reach out for help if needed.
+your work should be your own. You can also reach out to the team here at
+DeskGen for help if needed.
 
-You should fork this public repository and work on the code yourself. When you
-are finished you should make a pull request (PR) back to the parent repository.
-We'll then review the PR, clone the repo, run the code, and provide feedback.
+## Submission
+
+We use the [GitHub workflow](https://guides.github.com/introduction/flow/index.html)
+heavily. To submit your work, please follow it; you should fork this repository
+and work on the code. When you are finished you should
+[make a pull request](https://help.github.com/articles/creating-a-pull-request/)
+back to the parent repository.  We'll then review the PR, checkout and run your
+code, and provide feedback.
 
 
 Resources
