@@ -1,93 +1,100 @@
-# Objective
+# Python wrapper for spectral clustering C++ implementation
 
-Create a Python wrapper for a C/C++ such that it could be integrated into a 
-larger Python application. You may choose any C/C++ source code you wish, 
-including your own work. The aim is to demonstrate key aspects of teamwork at 
-DeskGen: integration, testing, documentation, readability, good abstraction, and
- **effective communication** which we feel are just as important 
-as brilliant algorithms. The goal should be that the other members of the 
-DeskGen team could integrate your work into a larger Python application 
-without necessarily knowing all the details of your implementation.
+This code demonstrates how to implement a simple Python wrapper for a C++ class using Boost Python. The C++ code is an implementation of spectral clustering; this is a method which clusters data using the eigenvalues (spectrum) of the kernel matrix of the data. There are four main steps in the C++ code:
 
+1. Computing the kernel matrix from the data. Polynomial and radial basis kernel functions are provided
+2. Perform eigendecomposition on the matrix
+3. Cluster k eignevectors/eigenvalues using standard k-means
+4. Pass cluster assignements back to original data
 
-The skeleton follows general Python conventions for this type of package, but is
-a suggestion, not a requirement.
+Spectral clustering is useful for dimensionality reduction and is applicable to a wide range of problems in bioinformatics, e.g.
 
-Here is the annotated tree:
+http://www.sciencedirect.com/science/article/pii/S0377042706002366
+http://www.biomedcentral.com/1471-2105/11/403
+http://nar.oxfordjournals.org/content/34/5/1571.short
+http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0046468
 
-```
+## Compiling
+
+Code has been tested under Ubuntu 14.04 and requires the following packages to be installed:
+
+build-essential # gcc/g++ tools
+libeigen3-dev # Linear algebra library for spectral clustering
+libboost-python1.54.0 # Boost Python wrapper
+libboost-python1.54-dev # Boost Python wrapper
+r-base #  Optional, to visualise test output
+
+sudo apt-get install build-essential libeigen3-dev libboost-python1.54.0 libboost-python1.54-dev r-base
+
+To build the code, cd into the lib directory and type make. This will build the spectral.so shared object which can be imported by Python.
+
+## Testing
+
+Backup one directory and type 'py.test -s tests/test_things.py'. Output should be as follows. Any lines starting with cpp are called using C++ code.
+
+====================================================================================== test session starts =======================================================================================
+platform linux2 -- Python 2.7.6 -- py-1.4.25 -- pytest-2.6.3
+collected 3 items 
+
+tests/test_things.py 
+Testing read_csv() function...
+
+cpp: reading data/spirals.csv
+cpp: reading finished
 .
-├── doc <------------------------------------------ Documentation
-│    └── instructions.md
-├── lib <------------------------------------------ C/C++ source
-│   └── code.c
-├── LICENSE.md             ,----- Project toolchain
-├── README.md              |
-├── scripts <--------------'  ,-- Python packaging entrypoint
-├── setup.py <----------------'
-├── tests <---------------------- At least one test that the wrapped code is
-│   └── test_wrapper.py           callable from Python. You should also
-└── wrapup                        describe the other test cases you'd write.
-    ├── __init__.py
-    └── wrapper.py
-```
+Testing cluster() function...
 
+cpp: reading data/spirals.csv
+cpp: reading finished
+cpp: centers = 2
+cpp: gamma = 172.05
+cpp: generating kernel matrix...
+cpp: eigendecomposition...
+cpp: kmeans...
+cpp: Iterations 1 : Error 0.4152 : Error delta 0.4152 : Centroid movement 0.0265
+cpp: Iterations 2 : Error 0.2130 : Error delta 0.2022 : Centroid movement 0.0000
+cpp: Iterations 3 : Error 0.2130 : Error delta 0.0000 : Centroid movement 0.0000
+cpp: all done.
+.
+Testing write_csv() function...
 
-## Further notes
+cpp: reading data/spirals.csv
+cpp: reading finished
+cpp: centers = 2
+cpp: gamma = 172.05
+cpp: generating kernel matrix...
+cpp: eigendecomposition...
+cpp: kmeans...
+cpp: Iterations 1 : Error 1.3037 : Error delta 1.3037 : Centroid movement 0.0503
+cpp: Iterations 2 : Error 0.3881 : Error delta 0.9156 : Centroid movement 0.0302
+cpp: Iterations 3 : Error 0.2134 : Error delta 0.1748 : Centroid movement 0.0014
+cpp: Iterations 4 : Error 0.2130 : Error delta 0.0004 : Centroid movement 0.0000
+cpp: Iterations 5 : Error 0.2130 : Error delta 0.0000 : Centroid movement 0.0000
+cpp: all done.
+cpp: writing data/clustered.csv
+cpp: writing finished
+.
 
-* Makefile and any other compilation requirements should be placed in `lib`, I
-  would like to be able to compile and test the wrapper
-* Documentation - sufficient documentation such that someone else at DeskGen
-  could effectively setup and run the underlying C/C++ code
-* License - Copyright remains yours so please pick a license
+=================================================================================== 3 passed in 41.47 seconds ====================================================================================
 
-## You don't need to include
+Three tests are run which check the main functionality:
 
-* setup.py - No need to make this a distributable python module
-* granular test coverage of the library, just the more interesting public
-  methods as an example is sufficient. You may wish to outline the "future
-  work" you'd undertake.
-* Extensive cross-platform build details (assume a sane version of Ubuntu)
-* Python Packaging (setup.py) is not the focus
+1. Instantiation of a Python SpecClust object using the 'data/spirals.csv' file containing raw data. Test ensures a 300x2 matrix is read in correctly
+2. Cluster function completes successfully and reasonable class assignments are made for all observations
+3. Data is written to 'data/clustered.csv' including class assignments - needs write access to data directory
 
-You may take as long as you need until you feel you have something that 
-showcases your abilities and we can discuss together. As in real-life you can 
-use all resources at your disposal, the web, books, friends, but ultimately 
-your work should be your own. You can also reach out to the team here at
-DeskGen for help if needed.
+If R is installed, you can also run 'scripts/plot.R'. This will generate 'data/clustered.png' which shows the cluster assignments for the spirals data set.
 
-## Submission
+## Notes
 
-We use the [GitHub workflow](https://guides.github.com/introduction/flow/index.html)
-heavily. To submit your work, please follow it; you should fork this repository
-and work on the code. When you are finished you should
-[make a pull request](https://help.github.com/articles/creating-a-pull-request/)
-back to the parent repository.  We'll then review the PR, checkout and run your
-code, and provide feedback.
+- The wrapper is implemented using Boost Python. I'm a fan of the Boost libraries and they are well maintained and documented, as well as explicitly supporting C++. 
+- The Boost code exposes the main public functions in the 'spectral.h' file. 
+- Importing and calling from Python is straightforward - I've made a very simple Python class in my_code.py to provide the interface.
+- To-do: some checking that parameters passed in are numeric/reasonable values.
+- To-do: data integrity on raw data.
+- To-do: interface to pass a Python numpy matrix to the C++ library.
 
+## Bugs
 
-Resources
----------
-* CFFI - one way of solving this problem.
- https://cffi.readthedocs.org/en/release-0.8/#an-example-of-calling-a-main-like-thing
+timnugent@gmail.com
 
-* datrie - an example of a python-wrapped C library that we use
-https://github.com/kmike/datrie
-
-Getting Started
----------------
-Assuming you haven't done any Python work before you might need a boost.
-This will install PIP and a Python virtual environment and both are very good
-things to know about if you do any Python development.
-```
-cd /tmp
-wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
-sudo python get-pip.py
-sudo pip install virtualenvwrapper
-cd ~  # or where ever you put your code
-. virtualenvwrapper.sh
-mkvirtualenv wrapup 
-git clone git@github.com:rodoyle/wrapup.git wrapup
-cd wrapup
-python setup.py develop
-```
