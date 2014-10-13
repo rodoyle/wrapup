@@ -1,6 +1,6 @@
 # Python wrapper for spectral clustering C++ implementation
 
-This code demonstrates how to implement a simple Python wrapper for a C++ class using Boost Python. The C++ code is an implementation of spectral clustering; this is a method which clusters data using the eigenvalues (spectrum) of the kernel matrix of the data. There are four main steps in the C++ code:
+This code demonstrates how to implement a simple Python wrapper for a C++ class using Boost Python. The C++ code is an implementation of spectral clustering; this is a method which clusters data using the eigenvectors (spectrum) of the kernel matrix of the data. There are four main steps in the C++ code:
 
 1. Computing the kernel matrix from the data. Polynomial and radial basis kernel functions are provided
 2. Perform eigendecomposition on the matrix
