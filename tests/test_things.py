@@ -7,16 +7,36 @@ Run with py.test test_things.py
 
 """
 
-import pytest  # This is the Python test runner we use
+import pytest, os, sys  # This is the Python test runner we use
+sys.path.append("../wrapup")
 # http://pytest.org/latest/getting-started.html#getstarted
 
+from wrapup.my_code import *
 
-# put some tests here
-def test_thing():
-    """This is a typical python unit test"""
-    from wrapup.my_code import main
+def test_read_csv():
+    print ("\nTesting read_csv() function...\n")
+    assert os.path.exists("data/spirals.csv")
+    test = SpecClust("data/spirals.csv")
+    assert test.get_rows() == 300
+    assert test.get_cols() == 2
 
-    result = main()
-    assert result == u'Hello World!'
+def test_cluster():
+    print ("\nTesting cluster() function...\n")
+    assert os.path.exists("data/spirals.csv")
+    test = SpecClust("data/spirals.csv")
+    test.set_centers(2)
+    test.set_gamma(172.05)
+    test.cluster()
+    for i in range(1, test.get_rows()+1):
+    	assert test.get_assignment(i) >= 1
+    	assert test.get_assignment(i) <= 2
 
-
+def test_write_csv():
+    print ("\nTesting write_csv() function...\n")
+    assert os.path.exists("data/spirals.csv")
+    test = SpecClust("data/spirals.csv")
+    test.set_centers(2)
+    test.set_gamma(172.05)
+    test.cluster()
+    test.write_data("data/clustered.csv")
+    assert os.path.exists("data/clustered.csv")

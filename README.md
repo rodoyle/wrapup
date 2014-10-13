@@ -19,9 +19,13 @@ http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0046468
 Code has been tested under Ubuntu 14.04 and requires the following packages to be installed:
 
 build-essential : gcc/g++ tools
+
 libeigen3-dev : Linear algebra library for spectral clustering
+
 libboost-python1.54.0 : Boost Python wrapper
+
 libboost-python1.54-dev : Boost Python wrapper
+
 r-base :  Optional, to visualise test output
 
 sudo apt-get install build-essential libeigen3-dev libboost-python1.54.0 libboost-python1.54-dev r-base
