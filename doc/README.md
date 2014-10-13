@@ -1,6 +1,6 @@
 # Python wrapper for spectral clustering C++ implementation
 
-This code demonstrates how to implement a simple Python wrapper for a C++ class using Boost Python. The C++ code is an implementation of spectral clustering; this is a method which clusters data using the eigenvalues (spectrum) of the kernel matrix of the data. There are four main steps in the C++ code:
+This code demonstrates how to implement a simple Python wrapper for a C++ class using Boost Python. The C++ code is an implementation of spectral clustering; this is a method which clusters data using the eigenvectors (spectrum) of the kernel matrix of the data. There are four main steps in the C++ code:
 
 1. Computing the kernel matrix from the data. Polynomial and radial basis kernel functions are provided
 2. Perform eigendecomposition on the matrix
@@ -18,11 +18,15 @@ http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0046468
 
 Code has been tested under Ubuntu 14.04 and requires the following packages to be installed:
 
-build-essential # gcc/g++ tools
-libeigen3-dev # Linear algebra library for spectral clustering
-libboost-python1.54.0 # Boost Python wrapper
-libboost-python1.54-dev # Boost Python wrapper
-r-base #  Optional, to visualise test output
+build-essential : gcc/g++ tools
+
+libeigen3-dev : Linear algebra library for spectral clustering
+
+libboost-python1.54.0 : Boost Python wrapper
+
+libboost-python1.54-dev : Boost Python wrapper
+
+r-base :  Optional, to visualise test output
 
 sudo apt-get install build-essential libeigen3-dev libboost-python1.54.0 libboost-python1.54-dev r-base
 
