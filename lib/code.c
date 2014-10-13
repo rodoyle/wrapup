@@ -1,1 +1,0 @@
-//C and C++ code typically goes in a folder like this
