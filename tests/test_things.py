@@ -9,19 +9,21 @@ Run with py.test test_things.py
 
 import os
 
-from wrapup.my_code import SpecClust
+from wrapup.spectral import Spectral
 
 def test_read_csv():
     print ("\nTesting read_csv() function...\n")
     assert os.path.exists("data/spirals.csv")
-    test = SpecClust("data/spirals.csv")
+    test = Spectral()
+    test.read_data("data/spirals.csv")
     assert test.get_rows() == 300
     assert test.get_cols() == 2
 
 def test_cluster():
     print ("\nTesting cluster() function...\n")
     assert os.path.exists("data/spirals.csv")
-    test = SpecClust("data/spirals.csv")
+    test = Spectral()
+    test.read_data("data/spirals.csv")
     test.set_centers(2)
     test.set_gamma(172.05)
     test.cluster()
@@ -32,7 +34,8 @@ def test_cluster():
 def test_write_csv():
     print ("\nTesting write_csv() function...\n")
     assert os.path.exists("data/spirals.csv")
-    test = SpecClust("data/spirals.csv")
+    test = Spectral()
+    test.read_data("data/spirals.csv")
     test.set_centers(2)
     test.set_gamma(172.05)
     test.cluster()
