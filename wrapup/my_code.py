@@ -8,11 +8,11 @@ import sys
 sys.path.append("lib")
 import spectral
 
-# Python spectral clustering class
 class SpecClust:
+    'Python spectral clustering class'
 
-	## Constructor using CSV file containing raw data
     def __init__(self,csv):
+        'Constructor using CSV file containing raw data'
         self.s = spectral.Spectral()
         self.s.read_data(csv)
         self.centers = 2
@@ -22,47 +22,47 @@ class SpecClust:
         self.gamma = 0.001
         self.constant = 1.0
         self.order = 2.0
-    ## Check number of rows/observations that have been read    
     def get_rows(self):
+        'Check number of rows/observations that have been read'
     	return self.s.get_rows()
-    ## Check number of columns/features that have been read  
     def get_cols(self):
+        'Check number of columns/features that have been read'
     	return self.s.get_cols()
-    ## Perform spectral clustering	
     def cluster(self):
+        'Perform spectral clustering'
     	self.s.cluster()
-    ## Write data to csv file	
     def write_data(self,csv):
+        'Write data to csv file'
     	self.s.write_data(csv)
-    ## Set number of centroids to cluster into	
     def set_centers(self,x):
+        'Set number of centroids to cluster into'
     	self.s.set_centers(x)
     	self.centers = x
-    ## Set RBF kernel gamma parameter	
     def set_gamma(self,x):
+        'Set RBF kernel gamma parameter'
     	self.s.set_gamma(x)
     	self.gamma = x 
-    ## Set max. iterations for k-means	
     def set_max_iters(self,x):
+        'Set max. iterations for k-means'
     	self.s.set_max_iters(x)
     	self.max_iters = x 
-    ## Set kernel type - default (1) is RBF. 2 = polynomial	
     def set_kernel(self,x):
+        'Set kernel type - default (1) is RBF. 2 = polynomial'
     	self.s.set_kernel(x)
     	self.kernel = x
-    ## Set constant in polynomial kernel	
     def set_constant(self,x):
+        'Set constant in polynomial kernel'
     	self.s.set_constant(x)
     	self.constant = x
-    ## Set order in polynomial kernel		
     def set_order(self,x):
+        'Set order in polynomial kernel'
     	self.s.set_order(x)
     	self.order = x
-    ## Get cluster assignment for row x	
     def get_assignment(self,x):
+        'Get cluster assignment for row x'
     	return self.s.get_assignment(x)
-    ## Get all cluster assignments	
     def get_assignments(self):
+        'Get all cluster assignments'
     	f = []
     	for i in range(1, self.s.get_rows()+1):
     		f.append(self.s.get_assignment(i))
