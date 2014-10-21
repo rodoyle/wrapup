@@ -36,6 +36,7 @@ To build the code, cd into the lib directory and type make. This will build the 
 
 Backup one directory and type 'py.test -s tests/test_things.py'. Output should be as follows. Any lines starting with cpp are called using C++ code.
 
+```
 ====================================================================================== test session starts =======================================================================================
 platform linux2 -- Python 2.7.6 -- py-1.4.25 -- pytest-2.6.3
 collected 3 items 
@@ -80,6 +81,7 @@ cpp: writing finished
 .
 
 =================================================================================== 3 passed in 41.47 seconds ====================================================================================
+```
 
 Three tests are run which check the main functionality:
 
