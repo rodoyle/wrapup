@@ -13,9 +13,4 @@ setup(
         #Python requirements are listed here ie. 'thing', 'thing2', etc
         'pytest',
     ],
-    entry_points={
-        'console_scripts': [
-            'run-wrapup = scripts/wrap:main',
-        ],
-    },
 )
