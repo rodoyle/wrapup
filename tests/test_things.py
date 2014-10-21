@@ -7,11 +7,9 @@ Run with py.test test_things.py
 
 """
 
-import pytest, os, sys  # This is the Python test runner we use
-sys.path.append("../wrapup")
-# http://pytest.org/latest/getting-started.html#getstarted
+import os
 
-from wrapup.my_code import *
+from wrapup.my_code import SpecClust
 
 def test_read_csv():
     print ("\nTesting read_csv() function...\n")
