@@ -4,9 +4,7 @@
 from __future__ import division
 from __future__ import absolute_import
 
-import sys
-sys.path.append("lib")
-import spectral
+from wrapup import spectral
 
 class SpecClust:
     'Python spectral clustering class'

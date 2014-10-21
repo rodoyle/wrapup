@@ -9,14 +9,15 @@ EIGEN_INC = /usr/include/eigen3
 BOOST_INC = /usr/include
 BOOST_LIB = /usr/lib
 
-TARGET = spectral
+SOURCE = spectral
+DEST = ../wrapup/spectral
  
-$(TARGET).so: $(TARGET).o
-	g++ --std=c++11 -shared -Wl,--export-dynamic $(TARGET).o -L$(BOOST_LIB) -lboost_python -L/usr/python$(PYTHON_VERSION)/config -lpython$(PYTHON_VERSION) -o $(TARGET).so
+$(DEST).so: $(DEST).o
+	g++ --std=c++11 -shared -Wl,--export-dynamic $(DEST).o -L$(BOOST_LIB) -lboost_python -L/usr/python$(PYTHON_VERSION)/config -lpython$(PYTHON_VERSION) -o $(DEST).so
  
-$(TARGET).o: $(TARGET).cpp
-	g++ --std=c++11 -I$(PYTHON_INCLUDE) -I$(BOOST_INC) -I$(EIGEN_INC) -fPIC -c $(TARGET).cpp -o $(TARGET).o
+$(DEST).o: $(SOURCE).cpp
+	g++ --std=c++11 -I$(PYTHON_INCLUDE) -I$(BOOST_INC) -I$(EIGEN_INC) -fPIC -c $(SOURCE).cpp -o $(DEST).o
 
 clean:
-	rm $(TARGET).so $(TARGET).o
+	rm $(DEST).so $(DEST).o
 
